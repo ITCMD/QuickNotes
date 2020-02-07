@@ -1,4 +1,5 @@
 @echo off
+title Purge Notes
 setlocal EnableDelayedExpansion
 cls
 echo This will back up all of your notes into one text file that will not show up in QuickNotes, 
@@ -14,8 +15,7 @@ set "HH=%dt:~8,2%" & set "Min=%dt:~10,2%" & set "Sec=%dt:~12,2%"
 set "datestamp=%YYYY%%MM%%DD%" & set "timestamp=%HH%%Min%%Sec%"
 set "fullstamp=%YYYY%-%MM%-%DD%_%HH%-%Min%-%Sec%"
 set fn=Notes\%fullstamp%.txt
-echo Backup name: "%fn%"
-pause
+echo [90mBackup name: "%fn%"
 echo BACKUP ON %date% - %time% >"%fn%"
 echo ======================================================================================================================== >>"%fn%"
 for /f "tokens=*" %%A in ('dir /b "Notes\*.Note"') do (
@@ -25,6 +25,9 @@ for /f "tokens=*" %%A in ('dir /b "Notes\*.Note"') do (
 	echo ======================================================================================================================== >>"%fn%"
 )
 del /f /q num.ini
-echo Completed backup. Opening file . . .
+del /f /q "Notes\*.Note"
+echo [92mCompleted backup. Opening file . . .[0m
 start "" "%fn%"
-pause
+echo [90mPress any key to exit . . .[0m
+pause>nul
+exit /b
